@@ -9,4 +9,4 @@
 5. Save payment list on a real external database (via REST API)
 6. Be able to display information about any previous payment (read the information from the local database or the distant one)
 7. Discover nearby mobiles send/receive money (bonus)
-8. Pay with QR Code8. Pay with QR Code8. Pay with QR Code8. Pay with QR Code8. Pay with QR Code8. Pay with QR Code8. Pay with QR Code8. Pay with QR Code
+8. Pay with QR Code
