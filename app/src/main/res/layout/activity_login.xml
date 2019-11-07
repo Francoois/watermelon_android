@@ -48,4 +48,11 @@
         android:layout_gravity="center"
         android:text="@string/signup_link" />
 
+    <TextView
+        android:id="@+id/atm_map_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:text="@string/atm_map_link" />
+
 </LinearLayout>

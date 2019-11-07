@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.signup_link)
     TextView _signupLink;
 
+    @BindView(R.id.atm_map_tv) TextView _gotoMapText;
+
     DataService service = RetrofitClient.getRetrofitInstance().create(DataService.class);
 
     @Override
@@ -58,6 +59,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        _gotoMapText.setOnClickListener(
+                (view) -> {
+                    Intent intent = new Intent(LoginActivity.this, ATMMapsActivity.class);
+                    startActivity(intent);
+                }
+        );
 
     }
 
