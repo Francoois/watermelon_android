@@ -77,17 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     //saveAccessToken(response.body().toString());
                     reloadMain = true;
-                    Log.d("ALED","KEY "+response.body().toString());
-                    setDefaults("access_token",response.body().toString(), LoginActivity.this);
-                    new AlertDialog.Builder(LoginActivity.this)
-                    .setTitle("SUCCESS")
-                    .setMessage(response.body().toString())
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
-                    .show();
+                    finish();
                 }
             }
 
@@ -98,12 +88,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    /*
-    public boolean saveAccessToken(String access_token) {
-        SharedPreferences sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
-        sharedPref.edit().putString("access_token", access_token);
-        return true;
-    }*/
+/*
+
+    new AlertDialog.Builder(LoginActivity.this)
+    .setTitle("SUCCESS")
+    .setMessage(response.body().toString())
+    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+            finish();
+        }
+    })
+    .show();
+}*/
 
 
 }

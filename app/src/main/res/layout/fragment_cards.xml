@@ -11,8 +11,17 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="50dp"
         android:gravity="center_horizontal"
-        android:text="Transfers"
+        android:text="Cards"
         android:textSize="36sp" />
+
+    <Spinner
+        android:id="@+id/spinner_brand"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:entries="@array/cards_brand"
+        android:spinnerMode="dropdown" />
 
     <EditText
         android:id="@+id/last_4"
@@ -21,8 +30,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:ems="10"
-        android:hint="Wallet"
-        android:inputType="numberSigned" />
+        android:hint="Card Number"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/expired_at"
@@ -31,8 +40,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:ems="10"
-        android:hint="Amount"
-        android:inputType="numberDecimal" />
+        android:hint="Expired at (YYYY-MM-DD)"
+        android:inputType="date" />
 
     <Button
         android:id="@+id/card_send"
@@ -43,7 +52,7 @@
         android:text="@string/send_label" />
 
     <ListView
-        android:id="@+id/transfers_listView"
+        android:id="@+id/cards_listView"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"

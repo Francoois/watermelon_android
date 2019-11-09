@@ -15,7 +15,7 @@
         android:textSize="36sp" />
 
     <EditText
-        android:id="@+id/transfers_wallet"
+        android:id="@+id/last_4"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -25,7 +25,7 @@
         android:inputType="numberSigned" />
 
     <EditText
-        android:id="@+id/transfers_amount"
+        android:id="@+id/expired_at"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -35,21 +35,19 @@
         android:inputType="numberDecimal" />
 
     <Button
-        android:id="@+id/transfers_send"
+        android:id="@+id/card_send"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="@string/send_label" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ListView
+        android:id="@+id/payouts_listView"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="50dp"
-        android:gravity="center_horizontal"
-        android:text="History"
-        android:textSize="36sp" />
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
 
 </LinearLayout>
