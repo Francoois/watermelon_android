@@ -3,7 +3,6 @@ package fr.android.watermelon;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         _registerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Call<User> result = service.postUser(_firstNameText.getText().toString(), _lastNameText.getText().toString(), _emailText.getText().toString(), _password1Text.getText().toString(), _adminSwitch.isChecked());
+                Call<User> result = service.postUsers(_firstNameText.getText().toString(), _lastNameText.getText().toString(), _emailText.getText().toString(), _password1Text.getText().toString(), _adminSwitch.isChecked());
                 usersResponse(result);
             }
         });

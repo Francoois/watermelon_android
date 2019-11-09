@@ -11,6 +11,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface DataService {
 
@@ -18,11 +19,16 @@ public interface DataService {
     Call<List<Page>> getHome();
 
     @GET("users")
-    Call<List<User>> getAllUsers(@Header("x-auth-token") String token);
+    Call<List<User>> getUsers(@Header("x-auth-token") String token);
 
     @FormUrlEncoded
     @POST("users")
-    Call<User> postUser(@Field("first_name") String first_name, @Field("last_name") String last_name, @Field("email") String email, @Field("password") String password, @Field("is_admin") boolean is_admin);
+    Call<User> postUsers(@Field("first_name") String first_name, @Field("last_name") String last_name, @Field("email") String email, @Field("password") String password, @Field("is_admin") boolean is_admin);
+
+    @FormUrlEncoded
+    @PUT("users")
+    Call<User> putUsers(@Field("first_name") String first_name, @Field("last_name") String last_name, @Field("email") String email, @Field("password") String password, @Field("is_admin") boolean is_admin);
+
 
     @FormUrlEncoded
     @POST("login")

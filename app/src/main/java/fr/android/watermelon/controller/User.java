@@ -16,6 +16,18 @@ public class User {
         this.is_admin = is_admin;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFirstName() {
+        return first_name;
+    }
+
+    public String getLastName() {
+        return last_name;
+    }
+
     public String toString() {
         return "email: " + email + "\n"
                 + "first_name: " + first_name + "\n"

@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +21,9 @@ import fr.android.watermelon.controller.retrofit.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static fr.android.watermelon.MainActivity.reloadMain;
+import static fr.android.watermelon.MainActivity.setDefaults;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -73,15 +75,19 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.body() == null)
                     Toast.makeText(LoginActivity.this, "Something went wrong...Please try again!", Toast.LENGTH_SHORT).show();
                 else {
+                    //saveAccessToken(response.body().toString());
+                    reloadMain = true;
+                    Log.d("ALED","KEY "+response.body().toString());
+                    setDefaults("access_token",response.body().toString(), LoginActivity.this);
                     new AlertDialog.Builder(LoginActivity.this)
-                            .setTitle("SUCCESS")
-                            .setMessage(response.body().toString())
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    finish();
-                                }
-                            })
-                            .show();
+                    .setTitle("SUCCESS")
+                    .setMessage(response.body().toString())
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .show();
                 }
             }
 
@@ -92,6 +98,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    /*
+    public boolean saveAccessToken(String access_token) {
+        SharedPreferences sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
+        sharedPref.edit().putString("access_token", access_token);
+        return true;
+    }*/
 
 
 }

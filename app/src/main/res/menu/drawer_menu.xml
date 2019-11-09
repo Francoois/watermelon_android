@@ -23,6 +23,22 @@
             android:id="@+id/nav_transfers"
             android:icon="@drawable/ic_transfers"
             android:title="Transfers" />
+        <item
+            android:id="@+id/nav_atm"
+            android:icon="@drawable/ic_atm"
+            android:title="ATM Around" />
     </group>
 
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_signout"
+                android:icon="@drawable/ic_signout"
+                android:title="Sign Out"/>
+            <item
+                android:id="@+id/nav_delete"
+                android:icon="@drawable/ic_delete"
+                android:title="Delete Account" />
+        </menu>
+    </item>
 </menu>

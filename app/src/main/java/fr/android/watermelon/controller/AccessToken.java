@@ -11,6 +11,6 @@ public class AccessToken {
     }
 
     public String toString() {
-        return "access_token: " + access_token;
+        return access_token;
     }
 }
