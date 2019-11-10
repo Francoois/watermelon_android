@@ -173,10 +173,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_payins:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PayinsFragment()).commit();
+                bundle = new Bundle();
+                bundle.putString("access_token", access_token);
+                bundle.putInt("user_id", id);
+                fragObj = new PayinsFragment();
+                fragObj.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_payouts:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PayoutsFragment()).commit();
+                bundle = new Bundle();
+                bundle.putString("access_token", access_token);
+                bundle.putInt("user_id", id);
+                fragObj = new PayoutsFragment();
+                fragObj.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_transfers:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TransfersFragment()).commit();

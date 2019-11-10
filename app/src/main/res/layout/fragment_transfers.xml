@@ -15,17 +15,17 @@
         android:textSize="36sp" />
 
     <EditText
-        android:id="@+id/last_4"
+        android:id="@+id/transfers_wallet"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="Wallet"
-        android:inputType="numberSigned" />
+        android:inputType="number" />
 
     <EditText
-        android:id="@+id/expired_at"
+        android:id="@+id/transfers_amount"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -35,10 +35,10 @@
         android:inputType="numberDecimal" />
 
     <Button
-        android:id="@+id/card_send"
+        android:id="@+id/transfers_send"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:text="@string/send_label" />
 

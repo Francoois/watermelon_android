@@ -7,6 +7,9 @@ import java.util.List;
 import fr.android.watermelon.controller.AccessToken;
 import fr.android.watermelon.controller.Card;
 import fr.android.watermelon.controller.Page;
+import fr.android.watermelon.controller.Pay;
+import fr.android.watermelon.controller.PayIns;
+import fr.android.watermelon.controller.PayOuts;
 import fr.android.watermelon.controller.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -48,5 +51,19 @@ public interface DataService {
 
     @DELETE("cards/{id}")
     Call<ResponseBody> deleteCards(@Header("x-auth-token") String token, @Path("id") int id);
+
+    @GET("payins")
+    Call<List<PayIns>> getPayIns(@Header("x-auth-token") String token);
+
+    @FormUrlEncoded
+    @POST("payins")
+    Call<PayIns> postPayIns(@Header("x-auth-token") String token, @Field("wallet_id") int wallet_id, @Field("amount") int amount);
+
+    @GET("payouts")
+    Call<List<PayOuts>> getPayOuts(@Header("x-auth-token") String token);
+
+    @FormUrlEncoded
+    @POST("payouts")
+    Call<PayOuts> postPayOuts(@Header("x-auth-token") String token, @Field("wallet_id") int wallet_id, @Field("amount") int amount);
 
 }

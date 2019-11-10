@@ -2,16 +2,19 @@ package fr.android.watermelon.controller;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 
 public class Card {
 
-    @SerializedName("id") private int id;
-    @SerializedName("user_id") private int user_id;
-    @SerializedName("last_4") private String last_4;
-    @SerializedName("brand") private String brand;
-    @SerializedName("expired_at") private String expired_at;
+    @SerializedName("id")
+    private int id;
+    @SerializedName("user_id")
+    private int user_id;
+    @SerializedName("last_4")
+    private String last_4;
+    @SerializedName("brand")
+    private String brand;
+    @SerializedName("expired_at")
+    private String expired_at;
 
     public Card(int id, int user_id, String last_4, String brand, String expired_at) {
         this.id = id;
@@ -43,7 +46,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return  "Brand: " + brand +"\nCard Number: ************" + last_4 + "\nValid Thru: " + expired_at;
+        return "Brand: " + brand + "\nCard Number: ************" + last_4 + "\nValid Thru: " + expired_at;
     }
 
 }
