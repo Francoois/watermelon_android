@@ -34,6 +34,7 @@ import fr.android.watermelon.controller.retrofit.DataService;
 import fr.android.watermelon.controller.retrofit.RetrofitClient;
 import fr.android.watermelon.fragment.ATMFragment;
 import fr.android.watermelon.fragment.CardsFragment;
+import fr.android.watermelon.fragment.HomeFragment;
 import fr.android.watermelon.fragment.PayinsFragment;
 import fr.android.watermelon.fragment.PayoutsFragment;
 import fr.android.watermelon.fragment.ProfileFragment;
@@ -77,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toogle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commit();
-            _navigationView.setCheckedItem(R.id.nav_wallet);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+         //   _navigationView.setCheckedItem(R.id.nav_wallet);
         }
 
         Intent intent = new Intent(this, LoginActivity.class);
@@ -107,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (reloadMain) {
             access_token = getDefaults("access_token", this);
-            Toast.makeText(this, access_token, Toast.LENGTH_SHORT).show();
             Call<List<User>> result = service.getUsers(access_token);
             updateUserData(result);
         }
@@ -119,16 +119,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 Log.d("ALED", "KEY " + call.request());
-                Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, response.body().get(0).getFirstName(), Toast.LENGTH_SHORT).show();
                 _userName.setText(response.body().get(0).getFirstName());
                 id = response.body().get(0).getId();
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "" + t, Toast.LENGTH_SHORT).show();
-                //    Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                 Log.d("THROW", t + "");
             }
         });
@@ -150,40 +147,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Bundle bundle;
+        Bundle bundle = new Bundle();
+        bundle.putString("access_token", access_token);
+        bundle.putInt("user_id", id);
         Fragment fragObj;
 
         switch (menuItem.getItemId()) {
             case R.id.nav_profile:
-                bundle = new Bundle();
-                bundle.putString("access_token", access_token);
                 fragObj = new ProfileFragment();
                 fragObj.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_wallet:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commit();
+                fragObj = new WalletFragment();
+                fragObj.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_cards:
-                bundle = new Bundle();
-                bundle.putString("access_token", access_token);
-                bundle.putInt("user_id", id);
                 fragObj = new CardsFragment();
                 fragObj.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_payins:
-                bundle = new Bundle();
-                bundle.putString("access_token", access_token);
-                bundle.putInt("user_id", id);
                 fragObj = new PayinsFragment();
                 fragObj.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_payouts:
-                bundle = new Bundle();
-                bundle.putString("access_token", access_token);
-                bundle.putInt("user_id", id);
                 fragObj = new PayoutsFragment();
                 fragObj.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
@@ -222,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         access_token = null;
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
         return true;
     }
 
@@ -229,13 +220,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(MainActivity.this, "No Content", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-                //    Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                 Log.d("THROW", t + "");
             }
         });
