@@ -9,6 +9,11 @@
     <string name="currency">$</string>
     <string name="send_label">Send</string>
     <string name="delete_msg">Are you sure that you want to delete your account ?</string>
+    <string name="transfers_page">Transfers</string>
+    <string name="cards_page">Cards</string>
+    <string name="payins_page">Pay Ins</string>
+    <string name="payouts_page">Pay Outs</string>
+    <string name="atm_around_page">ATM Around</string>
     <array name="cards_brand">
         <item name="visa">visa</item>
         <item name="master_card">master_card</item>

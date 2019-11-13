@@ -11,7 +11,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="50dp"
         android:gravity="center_horizontal"
-        android:text="Cards"
+        android:text="@string/cards_page"
         android:textSize="36sp" />
 
     <Spinner
