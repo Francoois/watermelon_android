@@ -17,4 +17,8 @@ public class Wallet {
     public Double getBalance() {
         return balance/100.0;
     }
+
+    public int getWalletId() {
+        return wallet_id;
+    }
 }

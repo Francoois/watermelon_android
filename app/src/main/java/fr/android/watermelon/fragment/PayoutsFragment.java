@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.android.watermelon.R;
 import fr.android.watermelon.controller.PayOuts;
+import fr.android.watermelon.controller.Wallet;
 import fr.android.watermelon.controller.retrofit.DataService;
 import fr.android.watermelon.controller.retrofit.RetrofitClient;
 import retrofit2.Call;
@@ -45,6 +46,7 @@ public class PayoutsFragment extends Fragment {
 
     private String access_token;
     private int user_id;
+    private int wallet_id;
 
     @Nullable
     @Override
@@ -62,11 +64,13 @@ public class PayoutsFragment extends Fragment {
 
         Call<List<PayOuts>> setup = service.getPayOuts(access_token);
         getPayOutsData(setup);
+        Call<List<Wallet>> wallet_req = service.getWallets(access_token);
+        getWalletData(wallet_req);
 
         _payInBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Call<PayOuts> result = service.postPayOuts(access_token, Integer.parseInt(_walletText.getText().toString()),(int)(Double.parseDouble(_amountText.getText().toString())*100));
+                Call<PayOuts> result = service.postPayOuts(access_token, wallet_id,(int)(Double.parseDouble(_amountText.getText().toString())*100));
                 postPayOutsData(result);
             }
         });
@@ -114,4 +118,22 @@ public class PayoutsFragment extends Fragment {
             }
         });
     }
+
+    private void getWalletData(Call<List<Wallet>> result) {
+        result.enqueue(new Callback<List<Wallet>>() {
+            @Override
+            public void onResponse(Call<List<Wallet>> call, Response<List<Wallet>> response) {
+                if (response.body() != null) {
+                    wallet_id = response.body().get(0).getWalletId();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Wallet>> call, Throwable t) {
+                Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
+                Log.d("THROW", t + "");
+            }
+        });
+    }
+
 }

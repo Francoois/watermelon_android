@@ -25,6 +25,7 @@ import fr.android.watermelon.R;
 import fr.android.watermelon.controller.Card;
 import fr.android.watermelon.controller.Pay;
 import fr.android.watermelon.controller.PayIns;
+import fr.android.watermelon.controller.Wallet;
 import fr.android.watermelon.controller.retrofit.DataService;
 import fr.android.watermelon.controller.retrofit.RetrofitClient;
 import retrofit2.Call;
@@ -47,6 +48,7 @@ public class PayinsFragment extends Fragment {
 
     private String access_token;
     private int user_id;
+    private int wallet_id;
 
     @Nullable
     @Override
@@ -64,11 +66,14 @@ public class PayinsFragment extends Fragment {
 
         Call<List<PayIns>> setup = service.getPayIns(access_token);
         getPayInsData(setup);
+        Call<List<Wallet>> wallet_req = service.getWallets(access_token);
+        getWalletData(wallet_req);
+
 
         _payInBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Call<PayIns> result = service.postPayIns(access_token, Integer.parseInt(_walletText.getText().toString()),(int)(Double.parseDouble(_amountText.getText().toString())*100));
+                Call<PayIns> result = service.postPayIns(access_token, wallet_id/*Integer.parseInt(_walletText.getText().toString())*/,(int)(Double.parseDouble(_amountText.getText().toString())*100));
                 postPayInsData(result);
             }
         });
@@ -116,4 +121,22 @@ public class PayinsFragment extends Fragment {
             }
         });
     }
+
+    private void getWalletData(Call<List<Wallet>> result) {
+        result.enqueue(new Callback<List<Wallet>>() {
+            @Override
+            public void onResponse(Call<List<Wallet>> call, Response<List<Wallet>> response) {
+                if (response.body() != null) {
+                    wallet_id = response.body().get(0).getWalletId();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Wallet>> call, Throwable t) {
+                Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
+                Log.d("THROW", t + "");
+            }
+        });
+    }
+
 }

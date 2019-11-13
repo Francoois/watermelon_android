@@ -8,7 +8,7 @@ public class Transfers {
     private int id;
     @SerializedName("debited_wallet_id")
     private int debited_wallet_id;
-    @SerializedName("debited_wallet_id")
+    @SerializedName("credited_wallet_id")
     private int credited_wallet_id;
     @SerializedName("amount")
     private int amount;
@@ -22,7 +22,7 @@ public class Transfers {
 
     @Override
     public String toString() {
-        return "Debited Wallet: " + debited_wallet_id + "\nCredited Wallet: " + credited_wallet_id + "\nAmount: " +amount;
+        return "Credited Wallet: " + credited_wallet_id + "\nAmount: " +amount;
     }
 
 }

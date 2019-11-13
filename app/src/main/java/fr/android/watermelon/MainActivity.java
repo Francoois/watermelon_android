@@ -30,6 +30,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.android.watermelon.controller.User;
+import fr.android.watermelon.controller.Wallet;
 import fr.android.watermelon.controller.retrofit.DataService;
 import fr.android.watermelon.controller.retrofit.RetrofitClient;
 import fr.android.watermelon.fragment.ATMFragment;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DataService service = RetrofitClient.getRetrofitInstance().create(DataService.class);
     private String access_token;
     private int id;
+    private Bundle savedInstanceState;
 
     public static boolean reloadMain = false;
 
@@ -70,16 +72,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         setSupportActionBar(_toolbar);
+        this.savedInstanceState = savedInstanceState;
 
         ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, _drawer, _toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         _drawer.addDrawerListener(toogle);
         toogle.syncState();
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-         //   _navigationView.setCheckedItem(R.id.nav_wallet);
+        setDefaults("access_token", null, this);
+
+        if (savedInstanceState == null && access_token != null) {
+         //   getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            setWalletView();
         }
 
         Intent intent = new Intent(this, LoginActivity.class);
@@ -110,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             access_token = getDefaults("access_token", this);
             Call<List<User>> result = service.getUsers(access_token);
             updateUserData(result);
+            setWalletView();
         }
         reloadMain = false;
     }
@@ -179,7 +184,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_transfers:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TransfersFragment()).commit();
+                fragObj = new TransfersFragment();
+                fragObj.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_atm:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ATMFragment()).commit();
@@ -210,9 +217,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public boolean signOut() {
         access_token = null;
+        setDefaults("acces_token", null, this);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-        finish();
         return true;
     }
 
@@ -231,6 +238,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
+    }
+
+    public boolean setWalletView() {
+        WalletFragment fragObj = new WalletFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("access_token", access_token);
+        bundle.putInt("user_id", id);
+        fragObj.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
+        _navigationView.setCheckedItem(R.id.nav_wallet);
+        return true;
     }
 
 }

@@ -10,6 +10,7 @@ import fr.android.watermelon.controller.Page;
 import fr.android.watermelon.controller.Pay;
 import fr.android.watermelon.controller.PayIns;
 import fr.android.watermelon.controller.PayOuts;
+import fr.android.watermelon.controller.Transfers;
 import fr.android.watermelon.controller.User;
 import fr.android.watermelon.controller.Wallet;
 import okhttp3.ResponseBody;
@@ -69,5 +70,12 @@ public interface DataService {
 
     @GET("wallets")
     Call<List<Wallet>> getWallets(@Header("x-auth-token") String token);
+
+    @GET("transfers")
+    Call<List<Transfers>> getTransfers(@Header("x-auth-token") String token);
+
+    @FormUrlEncoded
+    @POST("transfers")
+    Call<Transfers> postTransfers(@Header("x-auth-token") String token, @Field("debited_wallet_id") int debited_wallet_id, @Field("credited_wallet_id") int credited_wallet_id, @Field("amount") int amount);
 
 }
