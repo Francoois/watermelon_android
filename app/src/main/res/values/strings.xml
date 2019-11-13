@@ -3,7 +3,10 @@
     <string name="signin_label">Sign In</string>
     <string name="signup_label">Sign Up</string>
     <string name="signup_link">New user? Sign Up</string>
+
     <string name="atm_map_link">Trouver un ATM</string>
     <string name="title_activity_maps">Map</string>
     <string name="locate_string">Votre Position :</string>
+    <string name="loc_permitted">Location permit given</string>
+
 </resources>

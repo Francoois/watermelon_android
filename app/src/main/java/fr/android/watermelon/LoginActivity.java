@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fr.android.watermelon.atm_map.ATMMapsActivity;
 import fr.android.watermelon.controller.AccessToken;
 import fr.android.watermelon.controller.retrofit.DataService;
 import fr.android.watermelon.controller.retrofit.RetrofitClient;
