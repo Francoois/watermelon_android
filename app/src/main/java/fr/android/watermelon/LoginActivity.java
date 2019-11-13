@@ -23,6 +23,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static fr.android.watermelon.MainActivity.reloadMain;
+import static fr.android.watermelon.MainActivity.setDefaults;
+
 public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.signin_email)
@@ -82,15 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.body() == null)
                     Toast.makeText(LoginActivity.this, "Something went wrong...Please try again!", Toast.LENGTH_SHORT).show();
                 else {
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setTitle("SUCCESS")
-                            .setMessage(response.body().toString())
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    finish();
-                                }
-                            })
-                            .show();
+                    //saveAccessToken(response.body().toString());
+                    reloadMain = true;
+                    finish();
                 }
             }
 
@@ -101,6 +98,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+/*
+
+    new AlertDialog.Builder(LoginActivity.this)
+    .setTitle("SUCCESS")
+    .setMessage(response.body().toString())
+    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+            finish();
+        }
+    })
+    .show();
+}*/
 
 
 }

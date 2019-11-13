@@ -2,6 +2,7 @@
     <string name="app_name">WATERMELON</string>
     <string name="signin_label">Sign In</string>
     <string name="signup_label">Sign Up</string>
+    <string name="update_label">Update</string>
     <string name="signup_link">New user? Sign Up</string>
 
     <string name="atm_map_link">Trouver un ATM</string>
@@ -9,4 +10,16 @@
     <string name="locate_string">Votre Position :</string>
     <string name="loc_permitted">Location permit given</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="currency">$</string>
+    <string name="send_label">Send</string>
+    <string name="delete_msg">Are you sure that you want to delete your account ?</string>
+    <array name="cards_brand">
+        <item name="visa">visa</item>
+        <item name="master_card">master_card</item>
+        <item name="american_express">american_express</item>
+        <item name="union_pay">union_pay</item>
+        <item name="jcb">jcb</item>
+    </array>
 </resources>
