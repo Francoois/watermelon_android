@@ -13,7 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,6 +34,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import static java.lang.System.in;
 
 public class WalletFragment extends Fragment {
 
@@ -39,7 +49,7 @@ public class WalletFragment extends Fragment {
 
 
     private String access_token;
-    private int balance;
+    private Double balance;
 
     DataService service = RetrofitClient.getRetrofitInstance().create(DataService.class);
 
@@ -68,7 +78,7 @@ public class WalletFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Wallet>> call, Response<List<Wallet>> response) {
                 _balance_wallet.setText(response.body().get(0).getBalance() + " $");
-                balance = (response.body().get(0).getBalance()).intValue();
+                balance = response.body().get(0).getBalance();
                 new MyTask().execute();
             }
 
@@ -80,7 +90,7 @@ public class WalletFragment extends Fragment {
         });
 
 
-    }
+    } //"https://blockchain.info/tobtc?currency=USD&value="+balance
 
     public class MyTask extends AsyncTask<Void, Void, String> {
 
@@ -95,14 +105,24 @@ public class WalletFragment extends Fragment {
         protected String doInBackground(Void... param) {
             String out = "";
 
+
+
             try {
-                out = new Scanner(new URL("https://blockchain.info/tobtc?currency=USD&value="+balance).openStream(), "UTF-8").useDelimiter("\\A").next();
-            } catch (Exception e) {
+                InputStream in = new URL( "https://blockchain.info/tobtc?currency=USD&value="+balance ).openStream();
+             //   System.out.println( IOUtils.toString( in ) );
+                return IOUtils.toString( in );
+            }catch (Exception e) {
 
             }
-            Log.d("TAAAG", out+"|\n "+ balance);
-            return out;
+            finally {
+                IOUtils.closeQuietly(in);
+            }
+
+            return "";
         }
+
+
+
 
         // This runs in UI when background thread finishes
         @Override
