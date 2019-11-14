@@ -5,9 +5,9 @@
     <string name="update_label">Update</string>
     <string name="signup_link">New user? Sign Up</string>
 
-    <string name="atm_map_link">Trouver un ATM</string>
+    <string name="atm_map_link">Find an ATM</string>
     <string name="title_activity_maps">Map</string>
-    <string name="locate_string">Votre Position :</string>
+    <string name="locate_string">Your Position :</string>
     <string name="loc_permitted">Location permit given</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -4,6 +4,12 @@
     <string name="signup_label">S\'inscrire</string>
     <string name="update_label">Mettre à jour</string>
     <string name="signup_link">Nouvel utilisateur ? S\'inscrire</string>
+
+    <string name="atm_map_link">Trouver un ATM</string>
+    <string name="title_activity_maps">Carte</string>
+    <string name="locate_string">Votre Position :</string>
+    <string name="loc_permitted">Localistion autorisée</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="currency">€</string>
