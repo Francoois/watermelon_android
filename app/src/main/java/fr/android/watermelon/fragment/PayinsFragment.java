@@ -34,7 +34,6 @@ import retrofit2.Response;
 
 public class PayinsFragment extends Fragment {
 
-    @BindView(R.id.payins_wallet)
     EditText _walletText;
     @BindView(R.id.payins_amount)
     EditText _amountText;
