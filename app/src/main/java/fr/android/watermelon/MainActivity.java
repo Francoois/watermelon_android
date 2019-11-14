@@ -77,15 +77,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         _drawer.addDrawerListener(toogle);
         toogle.syncState();
 
-        setDefaults("access_token", null, this);
-
-        if (savedInstanceState == null && access_token != null) {
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment()).commit();
          //   getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-            setWalletView();
-        }
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        } else
+            reloadMain = true;
+
     }
 
     @Override
@@ -105,14 +105,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if (savedInstanceState == null)
+            setWalletView(getDefaults("access_token", this));
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
         if (reloadMain) {
             access_token = getDefaults("access_token", this);
+            Log.d("ALED2", access_token);
             Call<List<User>> result = service.getUsers(access_token);
             updateUserData(result);
-            setWalletView();
+         //   setWalletView();
         }
         reloadMain = false;
     }
@@ -214,8 +222,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public boolean signOut() {
-        access_token = null;
-        setDefaults("acces_token", null, this);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         return true;
@@ -238,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public boolean setWalletView() {
+    public boolean setWalletView(String access_token) {
         WalletFragment fragObj = new WalletFragment();
         Bundle bundle = new Bundle();
         bundle.putString("access_token", access_token);
