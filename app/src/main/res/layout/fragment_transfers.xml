@@ -11,7 +11,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="50dp"
         android:gravity="center_horizontal"
-        android:text="Transfers"
+        android:text="@string/transfers_page"
         android:textSize="36sp" />
 
     <EditText

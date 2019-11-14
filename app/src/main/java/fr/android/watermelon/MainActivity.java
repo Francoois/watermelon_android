@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DataService service = RetrofitClient.getRetrofitInstance().create(DataService.class);
     private String access_token;
     private int id;
+    private Bundle savedInstanceState;
 
     public static boolean reloadMain = false;
 
@@ -69,20 +70,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         setSupportActionBar(_toolbar);
+        this.savedInstanceState = savedInstanceState;
 
         ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, _drawer, _toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         _drawer.addDrawerListener(toogle);
         toogle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commit();
-            _navigationView.setCheckedItem(R.id.nav_wallet);
-        }
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment()).commit();
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        } else
+            reloadMain = true;
+
     }
 
     @Override
@@ -102,14 +104,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if (savedInstanceState == null)
+            setWalletView(getDefaults("access_token", this));
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
         if (reloadMain) {
             access_token = getDefaults("access_token", this);
-            Toast.makeText(this, access_token, Toast.LENGTH_SHORT).show();
+            Log.d("ALED2", access_token);
             Call<List<User>> result = service.getUsers(access_token);
             updateUserData(result);
+         //   setWalletView();
         }
         reloadMain = false;
     }
@@ -119,16 +129,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 Log.d("ALED", "KEY " + call.request());
-                Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, response.body().get(0).getFirstName(), Toast.LENGTH_SHORT).show();
                 _userName.setText(response.body().get(0).getFirstName());
                 id = response.body().get(0).getId();
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "" + t, Toast.LENGTH_SHORT).show();
-                //    Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                 Log.d("THROW", t + "");
             }
         });
@@ -150,46 +157,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Bundle bundle;
+        Bundle bundle = new Bundle();
+        bundle.putString("access_token", access_token);
+        bundle.putInt("user_id", id);
         Fragment fragObj;
 
         switch (menuItem.getItemId()) {
             case R.id.nav_profile:
-                bundle = new Bundle();
-                bundle.putString("access_token", access_token);
                 fragObj = new ProfileFragment();
                 fragObj.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_wallet:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commit();
+                fragObj = new WalletFragment();
+                fragObj.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_cards:
-                bundle = new Bundle();
-                bundle.putString("access_token", access_token);
-                bundle.putInt("user_id", id);
                 fragObj = new CardsFragment();
                 fragObj.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_payins:
-                bundle = new Bundle();
-                bundle.putString("access_token", access_token);
-                bundle.putInt("user_id", id);
                 fragObj = new PayinsFragment();
                 fragObj.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_payouts:
-                bundle = new Bundle();
-                bundle.putString("access_token", access_token);
-                bundle.putInt("user_id", id);
                 fragObj = new PayoutsFragment();
                 fragObj.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_transfers:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TransfersFragment()).commit();
+                fragObj = new TransfersFragment();
+                fragObj.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
                 break;
             case R.id.nav_atm:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ATMFragment()).commit();
@@ -219,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public boolean signOut() {
-        access_token = null;
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         return true;
@@ -229,18 +230,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(MainActivity.this, "No Content", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-                //    Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                 Log.d("THROW", t + "");
             }
         });
 
 
+    }
+
+    public boolean setWalletView(String access_token) {
+        WalletFragment fragObj = new WalletFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("access_token", access_token);
+        bundle.putInt("user_id", id);
+        fragObj.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragObj).commit();
+        _navigationView.setCheckedItem(R.id.nav_wallet);
+        return true;
     }
 
 }

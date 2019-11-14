@@ -74,8 +74,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.body() == null)
                     Toast.makeText(LoginActivity.this, "Something went wrong...Please try again!", Toast.LENGTH_SHORT).show();
                 else {
-                    //saveAccessToken(response.body().toString());
-                    setDefaults("access_token",response.body().toString(),LoginActivity.this);
+
+                    setDefaults("access_token", response.body().toString(), getApplicationContext());
+
                     reloadMain = true;
                     finish();
                 }

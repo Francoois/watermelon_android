@@ -5,21 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- afficher latitude longitude -->
-    <TextView
-        android:id="@+id/t_coord"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/locate_string"/>
-
     <!-- fragment de la map -->
-
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.ATMFragment" />
-
+        tools:context=".fragment.ATMFragment"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="50dp"
+        android:gravity="center_horizontal"
+        android:text="@string/atm_around_page"
+        android:textSize="36sp" />
 </LinearLayout>

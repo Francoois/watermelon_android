@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_email)
     EditText _emailText;
     @Nullable
-    @BindView(R.id.profile_password1)
+    @BindView(R.id.profile_password)
     EditText _password1Text;
     @Nullable
     @BindView(R.id.profile_password2)

@@ -34,8 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
     EditText _password1Text;
     @BindView(R.id.register_password2)
     EditText _password2Text;
-    @BindView(R.id.register_admin)
-    Switch _adminSwitch;
     @BindView(R.id.signin_btn)
     Button _registerButton;
 
@@ -50,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         _registerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Call<User> result = service.postUsers(_firstNameText.getText().toString(), _lastNameText.getText().toString(), _emailText.getText().toString(), _password1Text.getText().toString(), _adminSwitch.isChecked());
+                Call<User> result = service.postUsers(_firstNameText.getText().toString(), _lastNameText.getText().toString(), _emailText.getText().toString(), _password1Text.getText().toString(), false);
                 usersResponse(result);
             }
         });
@@ -60,15 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         result.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                new AlertDialog.Builder(RegisterActivity.this)
-                        .setTitle("SUCCESS")
-                        .setMessage("POST: " + response.body().toString())
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        })
-                        .show();
+                finish();
             }
 
             @Override
