@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        } else
-            reloadMain = true;
+        } //else
+           // reloadMain = true;
 
     }
 
@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onStart() {
         super.onStart();
+        ButterKnife.bind(this);
         if (savedInstanceState == null)
             setWalletView(getDefaults("access_token", this));
     }
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 Log.d("ALED", "KEY " + call.request());
+                Log.d("RESP", response.body().toString());
                 _userName.setText(response.body().get(0).getFirstName());
                 id = response.body().get(0).getId();
             }

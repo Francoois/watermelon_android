@@ -69,13 +69,11 @@ public class TransfersFragment extends Fragment {
         Call<List<Wallet>> wallet_req = service.getWallets(access_token);
         debited_wallet_id = getWalletData(wallet_req);
 
-       // Call<List<User>> credited_user = service.ge
-
         _transferBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Call<Transfers> result = service.postTransfers(access_token, debited_wallet_id, credited_wallet_id,(int)(Double.parseDouble(_amountText.getText().toString())*100));
-                postTransfersData(result);
+           //FIXME     Call<Transfers> result = service.postTransfers(access_token, debited_wallet_id, credited_wallet_id,(int)(Double.parseDouble(_amountText.getText().toString())*100));
+           //     postTransfersData(result);
             }
         });
     }

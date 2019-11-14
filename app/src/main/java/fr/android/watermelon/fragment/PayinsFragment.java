@@ -34,7 +34,6 @@ import retrofit2.Response;
 
 public class PayinsFragment extends Fragment {
 
-    EditText _walletText;
     @BindView(R.id.payins_amount)
     EditText _amountText;
     @BindView(R.id.payins_send)
@@ -72,7 +71,7 @@ public class PayinsFragment extends Fragment {
         _payInBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Call<PayIns> result = service.postPayIns(access_token, wallet_id/*Integer.parseInt(_walletText.getText().toString())*/,(int)(Double.parseDouble(_amountText.getText().toString())*100));
+                Call<PayIns> result = service.postPayIns(access_token, wallet_id,(int)(Double.parseDouble(_amountText.getText().toString())*100));
                 postPayInsData(result);
             }
         });
