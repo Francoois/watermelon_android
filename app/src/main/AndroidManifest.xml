@@ -34,15 +34,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".atm_map.ATMMapsActivity"
-            android:label="@string/title_activity_maps">
-            <!--
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.android.watermelon.LoginActivity" /> -->
-        </activity>
-
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

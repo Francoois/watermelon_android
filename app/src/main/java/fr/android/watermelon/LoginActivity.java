@@ -1,10 +1,7 @@
 package fr.android.watermelon;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,12 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fr.android.watermelon.atm_map.ATMMapsActivity;
 import fr.android.watermelon.controller.AccessToken;
 import fr.android.watermelon.controller.retrofit.DataService;
 import fr.android.watermelon.controller.retrofit.RetrofitClient;
@@ -65,14 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        _gotoMapText.setOnClickListener(
-                (view) -> {
-                    Intent intent = new Intent(LoginActivity.this, ATMMapsActivity.class);
-                    startActivity(intent);
-                }
-        );
-
     }
 
     @Override

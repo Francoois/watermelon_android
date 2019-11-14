@@ -70,9 +70,10 @@ public class ATMFragment extends Fragment implements OnMapReadyCallback, Locatio
         ButterKnife.bind(this, container);
 
         //setContentView(R.layout.activity_atm_maps);
+        View view = inflater.inflate(R.layout.fragment_atm, container, false);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
@@ -81,7 +82,7 @@ public class ATMFragment extends Fragment implements OnMapReadyCallback, Locatio
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         provider = LocationManager.GPS_PROVIDER;
 
-        return inflater.inflate(R.layout.fragment_atm, container, false);
+        return view;
     }
 
     /**
