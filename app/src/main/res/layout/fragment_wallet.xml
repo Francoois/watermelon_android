@@ -21,4 +21,13 @@
         android:text="0.00 $"
         android:textSize="36sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/btc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="0.00 BTC"
+        android:textSize="36sp"
+        android:textStyle="bold" />
 </LinearLayout>
