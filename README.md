@@ -9,5 +9,7 @@
 
 ## Installation 
 
-To run you need the Watermelon Backend available [here](https://github.com/Francoois/back_WaterMelon "Watermelon Backend git repository")
-Once the backend is up and running you can create your user.
+1. To run the App you need the Watermelon Backend available [here](https://github.com/Francoois/back_WaterMelon "Watermelon Backend git repository"). 
+2. Once the backend is up and running, change the ip address and port in `BASE_URL` in `fr/android/watermelon/controller/retrofit/RetrofitClient.java` to match your configuration. 
+If you are using an emulated device, the address to join your computer is probably `http://10.0.2.2:8000/`
+- You can now launch the  Android App from Android Studio and create your user.
